@@ -1,5 +1,6 @@
 package com.alcteam13.ui.inventory.inventory
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,19 +16,19 @@ class InventoryViewModel(private val inventoryRepository: InventoryRepository) :
     private val _inventoryForm = MutableLiveData<InventoryFormState>()
     val registerFormState: LiveData<InventoryFormState> = _inventoryForm
 
-    private val _inventoryResult = MutableLiveData<InventoryResult>()
-    val registerResult: LiveData<InventoryResult> = _inventoryResult
+    private val _inventoryResult = MutableLiveData<InventoryResult<InventoryView>>()
+    val registerResult: LiveData<InventoryResult<InventoryView>> = _inventoryResult
 
     fun create(
         name: String,
         price: String,
         quantity: String,
         image: String,
-        description: String,
-        callback: (Result<Inventory>) -> Unit
-    ) {
+        description: String
+    ): MutableLiveData<InventoryResult<InventoryView>> {
         // can be launched in a separate asynchronous job
         inventoryRepository.create(name, price, quantity, image, description) { result ->
+            Log.d("repo","Create in repo $result")
             if (result is Result.Success) {
                 _inventoryResult.value =
                     InventoryResult(
@@ -40,21 +41,29 @@ class InventoryViewModel(private val inventoryRepository: InventoryRepository) :
                         )
                     )
             } else {
+                Log.d("R.string.saving_failed","${R.string.saving_failed}")
                 _inventoryResult.value = InventoryResult(error = R.string.saving_failed)
             }
+
         }
+
+        return _inventoryResult
 
 
     }
 
-    fun registerDataChanged(username: String, password: String, confirm_password: String) {
-        if (!isUserNameValid(username)) {
-            _inventoryForm.value = InventoryFormState(emailError = R.string.invalid_email)
-        } else if (!isPasswordValid(password)) {
-            _inventoryForm.value = InventoryFormState(passwordError = R.string.invalid_password)
-        } else if (password != confirm_password) {
-            _inventoryForm.value =
-                InventoryFormState(passwordConfirmError = R.string.invalid_password_not_matched)
+    fun registerDataChanged(
+        name: String,
+        price: String,
+        quantity: String,
+        image: String,
+        description: String) {
+        if (name.isBlank()) {
+            _inventoryForm.value = InventoryFormState(nameError = R.string.invalid_inventory_name)
+        } else if (quantity.isBlank()) {
+            _inventoryForm.value = InventoryFormState(quantityError = R.string.invalid_quantity)
+        } else if (price.isBlank()) {
+            _inventoryForm.value = InventoryFormState(priceError = R.string.invalid_price)
         } else {
             _inventoryForm.value = InventoryFormState(isDataValid = true)
         }

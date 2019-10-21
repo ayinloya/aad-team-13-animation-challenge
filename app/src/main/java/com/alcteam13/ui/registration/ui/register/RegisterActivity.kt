@@ -43,6 +43,7 @@ class RegisterActivity : AppCompatActivity() {
 
         if (!user_id!!.isBlank()) {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         registerViewModel = ViewModelProviders.of(this, RegisterViewModelFactory())

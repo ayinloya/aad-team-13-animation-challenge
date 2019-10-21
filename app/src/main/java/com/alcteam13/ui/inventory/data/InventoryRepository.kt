@@ -11,8 +11,12 @@ import com.alcteam13.models.Result
 
 class InventoryRepository(val dataSource: InventoryDataSource) {
 
-    // in-memory cache of the loggedInUser object
+    // in-memory cache of the
+
     var inventory: Inventory? = null
+        private set
+
+    var inventoryList: List<Inventory>? = null
         private set
 
 
@@ -46,9 +50,25 @@ class InventoryRepository(val dataSource: InventoryDataSource) {
 
     }
 
+
+    fun getAll(callback: (Result<MutableList<Inventory>>) -> Unit) {
+        // handle inventory list
+        dataSource.all { result ->
+
+            if (result is Result.Success) {
+                setInventoryList(result.data)
+            }
+
+            callback(result)
+        }
+
+    }
+
+    private fun setInventoryList(inventoryList: List<Inventory>) {
+        this.inventoryList = inventoryList
+    }
+
     private fun setInventory(inventory: Inventory) {
         this.inventory = inventory
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
     }
 }

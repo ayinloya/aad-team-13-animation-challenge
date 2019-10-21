@@ -20,4 +20,7 @@
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="title_activity_add_inventory">AddInventoryActivity</string>
     <string name="saving_failed">Error saving data</string>
+    <string name="invalid_inventory_name">Inventory Name is invalid</string>
+    <string name="invalid_quantity">Quantity is invalid</string>
+    <string name="invalid_price">Price is invalid</string>
 </resources>
