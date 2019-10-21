@@ -36,6 +36,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
+    // Animators
+    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
     //Firebase
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
