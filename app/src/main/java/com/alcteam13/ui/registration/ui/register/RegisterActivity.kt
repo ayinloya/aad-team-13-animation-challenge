@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.alcteam13.MainActivity
 import com.alcteam13.R
+import com.alcteam13.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 
@@ -30,7 +31,8 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // added activity transition animation
+        overridePendingTransition(R.anim.fade_in_anim, R.anim.fade_out_anim)
         setContentView(R.layout.activity_register)
 
         val username = findViewById<EditText>(R.id.username)
@@ -164,6 +166,12 @@ class RegisterActivity : AppCompatActivity() {
     private fun showRegisterFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
+
+    override fun onBackPressed() {
+        // navigate to sign up page
+        startActivity(Intent(this,LoginActivity::class.java))
+        super.onBackPressed()
+    }
 }
 
 /**
@@ -179,4 +187,5 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
+
 }

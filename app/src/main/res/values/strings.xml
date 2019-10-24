@@ -23,4 +23,13 @@
     <string name="invalid_inventory_name">Inventory Name is invalid</string>
     <string name="invalid_quantity">Quantity is invalid</string>
     <string name="invalid_price">Price is invalid</string>
+    <string name="action_login">Sign In</string>
+    <string name="text_create_account">New User? Sign Up</string>
+    <string name="text_forgot_pass">Forgot Password?</string>
+    <string name="error_empty_email_field">Email field cannot be left empty</string>
+    <string name="error_empty_password_field">Password field cannot be left empty</string>
+    <string name="error_invalid_email">Enter a valid email address</string>
+    <string name="error_invalid_password">Password must be of 6 characters or more</string>
+    <string name="msg_login_successful">Login Successful</string>
+    <string name="title_activity_login">Login</string>
 </resources>
